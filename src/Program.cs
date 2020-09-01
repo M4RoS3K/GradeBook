@@ -8,20 +8,35 @@ namespace GradeBook
     {
         static void Main(string[] args)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-
             Book book = new Book("Hanka's grades");
 
-            book.AddGrade(89.1231368);
-            book.AddGrade(90.56548);
-            book.AddGrade(11.15648);
+            while(true)
+            {
+                Console.WriteLine("Enter a grade or 'q' to quit:");
+                string input = Console.ReadLine();
+
+                if (input.ToLower().Equals("q"))
+                {
+                    break;
+                }
+
+                try
+                {
+                    var grade = Double.Parse(input);
+                    book.AddGrade(grade);
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine(e.Message);
+                }                
+            } 
 
             var stats = book.GetStatistics();
             stats.PrintStats(stats);
-
-            sw.Stop();
-            Console.WriteLine($"Program took {sw.ElapsedMilliseconds} ms");
         }
     }
 }

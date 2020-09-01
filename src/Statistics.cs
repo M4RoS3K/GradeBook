@@ -6,9 +6,10 @@ namespace GradeBook
 {
     public class Statistics
     {
-        private double _highest = double.MinValue;
-        private double _lowest = double.MaxValue;
+        private double _highest = Double.MinValue;
+        private double _lowest = Double.MaxValue;
         private double _average = 0.0;
+        private char _letter;
 
         public double Highest
         {
@@ -28,11 +29,18 @@ namespace GradeBook
             set { _average = value; }
         }
 
+        public char Letter
+        {
+            get { return _letter; }
+            set { _letter = value; }
+        }
+
         public void PrintStats(Statistics statistics)
         {
             Console.WriteLine($"The highest of grades is {Highest:N2}");
             Console.WriteLine($"The lowest of grades is {Lowest:N2}");
             Console.WriteLine($"The average of grades is {Average:N2}");
+            Console.WriteLine($"The letter grade is {Letter}");
         }
     }
 }
