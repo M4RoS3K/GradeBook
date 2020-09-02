@@ -40,8 +40,19 @@ namespace GradeBook.Tests
         {
             var book = new Book("Hanka's book");
 
-            book.AddGrade(100.1);
-            book.AddGrade(-0.1);
+            try
+            {
+                book.AddGrade(100.1);
+                book.AddGrade(-0.1);
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
             Assert.Empty(book.Grades);
         }
