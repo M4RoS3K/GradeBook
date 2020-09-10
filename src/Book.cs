@@ -6,31 +6,34 @@ namespace GradeBook
 {
     public class Book
     {
-        private List<double> grades;
-        private string _name;
+        public delegate void GradeAddedDelegate(object sender, EventArgs args);
+        public event GradeAddedDelegate GradeAdded;
 
         public Book(string name)
         {
-            grades = new List<double>();
-            _name = name;
+            Grades = new List<double>();
+            Name = name;
         }
 
         public List<double> Grades
         {
-            get { return grades; }
+            get;
         }
-
         public string Name
         {
-            get { return _name; }
-            set { _name = value; }
-        }      
-
+            get; 
+            set;
+        }        
+        
         public void AddGrade(double grade)
         {
             if (grade <= 100 && grade >= 0)
             {
-                grades.Add(grade);
+                Grades.Add(grade);
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
             }
             else
             {
@@ -38,7 +41,7 @@ namespace GradeBook
             }
         }
 
-        public void AddLetterGrade(char letter)
+        public void AddGrade(char letter)
         {
             switch (letter)
             {
@@ -72,14 +75,14 @@ namespace GradeBook
         {
             var result = new Statistics();
 
-            for (var i = 0; i < grades.Count; i++)
+            for (var i = 0; i < Grades.Count; i++)
             {
-                result.Highest = Math.Max(grades[i], result.Highest);
-                result.Lowest = Math.Min(grades[i], result.Lowest);
-                result.Average += grades[i];
+                result.Highest = Math.Max(Grades[i], result.Highest);
+                result.Lowest = Math.Min(Grades[i], result.Lowest);
+                result.Average += Grades[i];
             }
 
-            result.Average /= grades.Count;
+            result.Average /= Grades.Count;
 
             switch (result.Average)
             {
