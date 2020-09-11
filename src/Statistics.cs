@@ -6,10 +6,25 @@ namespace GradeBook
 {
     public class Statistics
     {
-        private double _highest = Double.MinValue;
-        private double _lowest = Double.MaxValue;
-        private double _average = 0.0;
-        private char _letter;
+        private double _highest;
+        private double _lowest;        
+        private double _sum;
+        private int _count;
+
+        public Statistics()
+        {
+            _highest = Double.MinValue;
+            _lowest = Double.MaxValue;            
+            _sum = 0.0;
+        }
+
+        public void Add(double number)
+        {
+            _sum += number;
+            _count++;
+            _highest = Math.Max(number, _highest);
+            _lowest = Math.Min(number, _lowest);
+        }
 
         public double Highest
         {
@@ -25,15 +40,31 @@ namespace GradeBook
 
         public double Average
         {
-            get { return _average; }
-            set { _average = value; }
+            get { return _sum / _count; }            
         }
 
         public char Letter
         {
-            get { return _letter; }
-            set { _letter = value; }
-        }
+            get {
+                switch (Average)
+                {
+                    case var d when d >= 90.0:
+                        return 'A';                        
+
+                    case var d when d >= 80.0:
+                        return 'B';
+
+                    case var d when d >= 70.0:
+                        return 'C';
+
+                    case var d when d >= 60.0:
+                        return 'D';
+
+                    default:
+                        return 'F';
+                }
+            }
+        }        
 
         public void PrintStats(Statistics statistics)
         {

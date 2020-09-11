@@ -8,10 +8,19 @@ namespace GradeBook
     {
         static void Main(string[] args)
         {
-            Book book = new Book("Hanka's grades");
+            IBook book = new DiskBook("Hanka's grades");
             book.GradeAdded += OnGradeAdded;
 
-            while(true)
+            EnterGrades(book);
+
+            var stats = book.GetStatistics();
+            Console.WriteLine($"For the {book.Name}:");
+            stats.PrintStats(stats);
+        }
+
+        private static void EnterGrades(IBook book)
+        {
+            while (true)
             {
                 Console.WriteLine("Enter a grade or 'q' to quit:");
                 string input = Console.ReadLine();
@@ -33,12 +42,8 @@ namespace GradeBook
                 catch (FormatException e)
                 {
                     Console.WriteLine(e.Message);
-                }                
-            } 
-
-            var stats = book.GetStatistics();
-            Console.WriteLine($"For the {book.Name}:");
-            stats.PrintStats(stats);
+                }
+            }
         }
 
         static void OnGradeAdded(object sender, EventArgs e)

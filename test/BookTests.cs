@@ -9,7 +9,7 @@ namespace GradeBook.Tests
         public void TestBookAvgHighestLowestName()
         {
             // arrange
-            var book = new Book("Hanka's book");
+            var book = new InMemoryBook("Hanka's book");
             book.AddGrade(89.1);
             book.AddGrade(90.5);
             book.AddGrade(77.3);
@@ -28,7 +28,7 @@ namespace GradeBook.Tests
         [Fact]
         public void TestValidValue()
         {
-            var book = new Book("Hanka's book");
+            var book = new InMemoryBook("Hanka's book");
 
             book.AddGrade(100);
 
@@ -38,7 +38,7 @@ namespace GradeBook.Tests
         [Fact]
         public void TestInValidValue()
         {
-            var book = new Book("Hanka's book");
+            var book = new InMemoryBook("Hanka's book");
 
             try
             {
